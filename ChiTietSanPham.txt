@@ -1,0 +1,2 @@
+Apple M1,none,8,Amoled,Apple,2020,MacOS10,6
+I59300h,Gtx1650,8,LCD,Asus,2019,Win10,12
