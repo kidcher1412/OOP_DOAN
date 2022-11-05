@@ -140,7 +140,7 @@ public class ChiTietSanPham {
     @Override
     public String toString() {
         String caselog;
-        caselog = getCPU()+"%-6s"+ getGPU()+"%-6s"+ getHangSanXuat()+"%-6s"+ getHeDieuHanh()+"%-6s"+ getManHinh()+"%-6s"+ getThoiGianBaoHanh()+ "%-6s"+ getNamSanXuat()+ "%-6s"+ getRAM();
+        caselog = getCPU()+","+ getGPU()+","+ getHangSanXuat()+","+ getHeDieuHanh()+","+ getManHinh()+","+ getThoiGianBaoHanh()+ ","+ getNamSanXuat()+ ","+ getRAM();
         return caselog;
     }
     

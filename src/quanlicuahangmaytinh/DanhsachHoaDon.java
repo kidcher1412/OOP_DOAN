@@ -31,71 +31,6 @@ public class DanhsachHoaDon {
         
     }
     
-    public void ThaoTacDanhSach(){
-        byte number;
-        boolean exit = false;
-            do {
-            System.out.println();
-            System.out.println("============ DANH SÁCH Hóa Đơn ============");
-            System.out.println("Hãy chọn Loại bạn muốn thao tác");
-            System.out.println("1)......Thêm Hóa Đơn");
-            System.out.println("2)......In Hóa Đơn");
-            System.out.println("3)......Tim Kiếm Hóa Đơn");
-            System.out.println("4)......Xóa Hóa Đơn");
-            System.out.println("5)......Sửa Hóa Đơn");
-            System.out.println("0)......Thoát Danh Sách Này!");
-            System.out.println("=========================================");
-            System.out.print("Mời bạn nhập lựa chọn: ");
-            number = sc.nextByte();   
-            sc.nextLine();
-                                      
-            switch(number){
-                case 1:
-                    this.Nhap();
-                    this.ghiFile();
-                    break;
-            
-                case 2:
-                    this.Xuat();
-                    break;
-            
-                case 3:
-                    String Ma_Check;
-                    System.out.printf("Mời Nhập Mã Phiếu Nhập Cần Tìm: ");
-                    Ma_Check=sc.nextLine();
-                    boolean checknull = true;
-                    for(int i = 0; i<hoadon.length;i++)
-                        if(hoadon[i].ChecktimKiem(Ma_Check))
-                        {
-                            hoadon[i].Xuat();
-                            checknull = false;
-                        }
-                    if(checknull) System.out.printf("%-80s","NONE!!!");
-                    break;
-                case 4:
-                    this.ghiFile();
-                    break;
-                case 5:
-                    String Ma_Check1;
-                    System.out.printf("Mời Nhập Mã Phiếu Nhập Cần Sửa: ");
-                    Ma_Check1=sc.nextLine();
-                    for(int i = 0; i<hoadon.length;i++)
-                        if(hoadon[i].ChecktimKiem(Ma_Check1))
-                            hoadon[i].Nhap();
-                    break;
-                case 0:
-                    exit = true; 
-                    System.out.println("Thoát thành công!");
-                    break;
-                default:
-                    System.out.print("\nLựa chọn không hợp lệ! Vui lòng chọn lại...");
-                    break;
-            }
-            if(exit == true)
-                break;
-        }
-        while(true);
-    }
     public void Nhap(){
         String val;
         int n;
@@ -182,5 +117,8 @@ public class DanhsachHoaDon {
         } catch (Exception e) {
         }
         System.out.println("\nNhập file thành công!");
+    }
+    public HoaDon[] returnit(){
+        return hoadon;
     }
 }

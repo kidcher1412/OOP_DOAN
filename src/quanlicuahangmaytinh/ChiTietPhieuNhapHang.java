@@ -5,6 +5,9 @@
  */
 package quanlicuahangmaytinh;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -116,9 +119,19 @@ public final class ChiTietPhieuNhapHang {
         while(checknull){
             for(SanPham check:dssanpham){
                 if(check.returnbyID(val)!=null){
-                    System.out.println("thêm Nhà Cung Cấp "+ check.getTenSP()+" vào phiếu thu");
+                    System.out.println("thêm Sản Phẩm "+ check.getTenSP()+" vào phiếu thu");
+                    check.Them_SoLuongTon(soluong);
                     this.sanpham = check.returnbyID(val);
+                    for(int i = 0 ; i< dssanpham.length;i++){
+                        if(dssanpham[i].ChecktimKiem(check.MaSP))
+                        {
+                            dssanpham[i] = check;              //Cập Nhật Lại Danh Sach
+                            break;
+                        }
+                    }
+                    this.ghiFile();
                     checknull = false;
+                    break;
                 }
             }
             if(checknull){
@@ -147,5 +160,23 @@ public final class ChiTietPhieuNhapHang {
     @Override
     public String toString(){
         return MaCTPT+","+nhanvien.MaDoiTuong+","+nhacungcap.getMaNCC()+","+sanpham.MaSP+","+soluong;
+    }
+    public void ghiFile(){
+        try {
+            BufferedWriter fw = new BufferedWriter(new FileWriter("DanhSachSanPham.txt"));
+            BufferedWriter fw1 = new BufferedWriter(new FileWriter("ChiTietSanPham.txt"));
+            
+            for (SanPham sanpham1 : dssanpham) {
+                fw.write(sanpham1.toString()); 
+                fw1.write(sanpham1.toStringChiTiet()); 
+                fw.newLine();
+                fw1.newLine();
+            }
+            System.out.println("Xuat File Thành Công");
+            fw.close();
+            fw1.close();
+        } catch (IOException e) {
+        }
+        System.out.println("\nXuất file thành công!");
     }
 }

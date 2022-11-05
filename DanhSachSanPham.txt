@@ -1,2 +1,2 @@
-B01,MacBook M1,17000000,40,Apple,Bộ Sạc
-L01,Asus Vivobook f571gt,10000000,56,Asus,JBL,true,true
+B01,MacBook M1,17000000,52,Apple,Bộ Sạc
+L01,Asus Vivobook f571gt,10000000,57,Asus,JBL,true,true

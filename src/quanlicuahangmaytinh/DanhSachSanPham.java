@@ -26,91 +26,6 @@ public class DanhSachSanPham {
     public DanhSachSanPham() {
             this.docFile();
     }
-    
-    public void ThaoTacDanhSach(){
-            do {
-            System.out.println();
-            System.out.println("=============== DANH SÁCH Sản Phẩm ===============");
-            System.out.println("Hãy chọn Loại bạn muốn thao tác");
-            System.out.println("1)......Thêm sản Phẩm");
-            System.out.println("2)......In sản phẩm");
-            System.out.println("3)......Tim Kiếm sản Phẩm");
-            System.out.println("4)......Xóa Sản Phẩm");
-            System.out.println("5)......Sửa Sản Phẩm");
-            System.out.println("0)......Thoát Danh Sách Này!");
-            System.out.println("=========================================");
-            System.out.print("Mời bạn nhập lựa chọn: ");
-            number = sc.nextByte();   
-            sc.nextLine();
-                                      
-            switch(number){
-                case 1:
-                    this.Them();
-                    this.ghiFile();
-                    break;
-            
-                case 2:
-                    this.Xuat();
-                    break;
-            
-                case 3:
-                    String Ma_Check;
-                    System.out.printf("Mời Nhập Mã Check: ");
-                    Ma_Check=sc.nextLine();
-                    boolean checknull = true;
-                    for(SanPham x:sanpham)
-                        if(x.returnbyID(Ma_Check)!=null){
-                            if(x instanceof LapTop) System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s ","MaSP","Tên Sản Phẩm","DonGia","NhaCungCap","SoLuongTon","Cảm Ứng","Led Bàn Phím","Chất Lượng Loa"+"\n");
-                            else System.out.printf("%-10s %-30s %-20s %-20s %-20s %-60s ","MaSP","Tên Sản Phẩm","DonGia","NhaCungCap","SoLuongTon","Phụ Kiện Tặng Kèm"+"\n");
-                            checknull = false;
-                            x.Xuat();
-                            x.ChiTiet.Xuat();
-                        }
-                    if(checknull) System.out.printf("%-80s","NONE!!!");
-                    break;
-            
-                case 4:
-                    this.ghiFile();
-                    break;
-                case 5:
-                    System.out.println("Nhập Mã Sản Phẩm cần sửa: ");
-                    String Ma_Check1= sc.nextLine();
-                    for(int i = 0; i<sanpham.length;i++){
-                        if(sanpham[i].ChecktimKiem(Ma_Check1)){
-                            if(sanpham[i] instanceof LapTop){
-                                LapTop x =(LapTop) sanpham[i];
-                                x.Nhap();
-                                x.Xuat();
-                                sanpham[i]=(LapTop) x;
-                            }
-                                
-                            else{
-                                MayTinhBan x =(MayTinhBan) sanpham[i];
-                                x.Nhap();
-                                x.Xuat();
-                                sanpham[i]=(MayTinhBan) x;
-                            }
-                        break; 
-                        } 
-                    }
-                    
-
-                    
-                    break;
-                case 0:
-                    exit = true; 
-                    System.out.println("Thoát thành công!");
-                    break;
-            
-                default:
-                    System.out.print("\nLựa chọn không hợp lệ! Vui lòng chọn lại...");
-                    break;
-            }
-            if(exit == true)
-                break;
-        }
-        while(true);
-    }
     public void Them(){
         System.out.println("nhap so luong sản phẩm cần thêm");
         int n =Integer.parseInt(sc.nextLine());
@@ -159,22 +74,30 @@ public class DanhSachSanPham {
         System.out.println("3. tất cả sản phẩm");
         number = sc.nextByte();
         if(number ==1)
-            System.out.printf("    %-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s ","MaSP","Tên Sản Phẩm","DonGia","NhaCungCap","SoLuongTon","Cảm Ứng","Led Bàn Phím","Chất Lượng Loa");
-        else 
-            System.out.printf("    %-10s %-30s %-20s %-20s %-20s %-60s ","MaSP","Tên Sản Phẩm","DonGia","NhaCungCap","SoLuongTon","Phụ Kiện Tặng Kèm");
+            System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s ","MaSP","Tên Sản Phẩm","DonGia","NhaCungCap","SoLuongTon","Cảm Ứng","Led Bàn Phím","Chất Lượng Loa");
+        if(number ==2)
+            System.out.printf("%-10s %-30s %-20s %-20s %-20s %-60s ","MaSP","Tên Sản Phẩm","DonGia","NhaCungCap","SoLuongTon","Phụ Kiện Tặng Kèm");
         System.out.println("");
         for(int i = 0 ; i< this.sanpham.length ; i++){
             switch(number){
                 case 1:
-                    if(sanpham[i] instanceof LapTop) sanpham[i].Xuat();
+                    if(sanpham[i] instanceof LapTop) {
+                        sanpham[i].Xuat();
+                        sanpham[i].ChiTiet.Xuat();
+                        
+                    }
                     else break;
                     break;
                 case 2:
-                    if(sanpham[i] instanceof MayTinhBan) sanpham[i].Xuat();
+                    if(sanpham[i] instanceof MayTinhBan){
+                        sanpham[i].Xuat();
+                        sanpham[i].ChiTiet.Xuat();
+                    }
                     else break;
                     break;
                 case 3:
-                    sanpham[i].Xuat();
+                    SanPham x =(SanPham) sanpham[i];
+                    x.Xuat();
                     break;
             }
         }

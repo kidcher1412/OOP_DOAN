@@ -95,4 +95,14 @@ public class SanPham {
         if(this.MaSP.equals(truyen_MaCheck)) return this;
         return null;
     }
+    public boolean check_SoLuongTon(byte check){
+        if(check > this.SoLuongTon) return false;
+        else return true;
+    }
+    public void Them_SoLuongTon(int truyen_Soluongthem){
+        this.SoLuongTon = this.SoLuongTon  + truyen_Soluongthem;
+    }
+    public void Bot_SoLuongTon(int truyen_Soluongban){
+        this.SoLuongTon = this.SoLuongTon  - truyen_Soluongban;
+    }
 }

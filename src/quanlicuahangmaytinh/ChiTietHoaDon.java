@@ -5,6 +5,9 @@
  */
 package quanlicuahangmaytinh;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -59,11 +62,35 @@ public class ChiTietHoaDon {
     public void Nhap(){
         String val;
         boolean checknull = true;
+        for(SanPham x:dssanpham) System.out.println("Các Sản Phẩm "+x.getMaSP());
+        System.out.printf("Vui Lòng Nhập Mã Sản Phẩm Được Mua: ");
+        val = in.nextLine();
+        
+        while(checknull){
+            for(SanPham check:dssanpham){
+                if(check.returnbyID(val)!=null){
+                    System.out.println("thêm Sản Phẩm "+ check.getTenSP()+" vào Hóa Đơn");
+                    this.sanpham = check.returnbyID(val);
+                    checknull = false;
+                }
+            }
+            if(checknull){
+                System.out.println("Không Tìm thấy Sản Phẩm trong Hệ Thống Vui Lòng Thử Lại");
+                System.out.printf("Vui Lòng Nhập Mã Sản Phẩm: ");
+                val = in.nextLine();
+            } 
+        }
+        System.out.printf("Nhập Số Lượng Hàng Chi Tiết Phiếu Thu: ");
+        soluong = Byte.parseByte(in.nextLine());
+        for(SanPham x:  dssanpham){ 
+            if(x.check_SoLuongTon(soluong) && x.ChecktimKiem(this.sanpham.getMaSP()))
+                {System.out.println("Số Lượng Tồn Kho Vẫn Đủ! Thành Lập Chi Tiết! ");
+                break;
+            }
+        }
         System.out.printf("Nhập Mã Chi Tiết Phiếu Thu: ");
         val = in.nextLine();
         setMaCTHD(val);
-        System.out.printf("Nhập Số Lượng Hàng Chi Tiết Phiếu Thu: ");
-        soluong = Byte.parseByte(in.nextLine());
         for(ConNguoi x:dsconnguoi) if(x instanceof NhanVien){
             NhanVien temp = (NhanVien) x;
             System.out.println(" Nhan Vien: "+ temp.getMaDoiTuong());
@@ -104,25 +131,16 @@ public class ChiTietHoaDon {
                 val = in.nextLine();
             } 
         }
-        checknull =true;
-        for(SanPham x:dssanpham) System.out.println(" Nha Cung Cap "+x.getMaSP());
-        System.out.printf("Vui Lòng Nhập Mã Sản Phẩm: ");
-        val = in.nextLine();
         
-        while(checknull){
-            for(SanPham check:dssanpham){
-                if(check.returnbyID(val)!=null){
-                    System.out.println("thêm Nhà Cung Cấp "+ check.getTenSP()+" vào phiếu thu");
-                    this.sanpham = check.returnbyID(val);
-                    checknull = false;
-                }
-            }
-            if(checknull){
-                System.out.println("Không Tìm thấy Sản Phẩm trong Hệ Thống Vui Lòng Thử Lại");
-                System.out.printf("Vui Lòng Nhập Mã Sản Phẩm: ");
-                val = in.nextLine();
-            } 
-        }
+        for(SanPham check: dssanpham)
+            for(int i = 0 ; i< dssanpham.length;i++){
+                        if(dssanpham[i].ChecktimKiem(check.MaSP))
+                        {
+                            check.Bot_SoLuongTon(soluong);
+                            dssanpham[i] = check;              //Cập Nhật Lại Danh Sach
+                            break;
+                        }
+                    }
         TongTien = this.setTongTien();
     }
     public void Xuat(){
@@ -132,5 +150,23 @@ public class ChiTietHoaDon {
     @Override
     public String toString(){
         return this.MaCTHD +","+ this.nhanvien.getMaDoiTuong() +","+ this.khachhang.getMaDoiTuong() +","+ this.sanpham.getMaSP()+","+this.soluong;
+    }
+        public void ghiFile(){
+        try {
+            BufferedWriter fw = new BufferedWriter(new FileWriter("DanhSachSanPham.txt"));
+            BufferedWriter fw1 = new BufferedWriter(new FileWriter("ChiTietSanPham.txt"));
+            
+            for (SanPham sanpham1 : dssanpham) {
+                fw.write(sanpham1.toString()); 
+                fw1.write(sanpham1.toStringChiTiet()); 
+                fw.newLine();
+                fw1.newLine();
+            }
+            System.out.println("Xuat File Thành Công");
+            fw.close();
+            fw1.close();
+        } catch (IOException e) {
+        }
+        System.out.println("\nXuất file thành công!");
     }
 }
