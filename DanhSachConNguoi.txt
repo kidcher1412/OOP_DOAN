@@ -1,0 +1,5 @@
+0080,Thông,Hoàng Lê Anh,2002,0933647040,Nam,KH01,Xuyên Mộc,thongnguyenhkt@gmail.com
+0064,Thúy,Trần Cẩm,1992,091237426,Nữ,NV01,7000000,Nhân Viên,2010
+0058,Ngọc,Hoàng Thị,1998,091234234,Nữ,NV02,8000000,Nhân Viên,2006
+0092,Quân,Vòng Đại,1899,098747263,Nam,NV03,10000000,Quản Lý,2006
+0010,Đại,Trần Bảo,2000,093747612,Nam,KH02,Hồ Chí Minh,tranbaodai@gmail.com
